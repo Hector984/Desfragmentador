@@ -36,12 +36,14 @@ public final class Candado extends JFrame implements ActionListener {
     class Cola_de_Digitos implements Serializable{
         private final Color color;
         //Numero de fragmentos por archivo        
-        public int n_digitos = 10;//Representa las filas
+        public int n_digitos;//Representa las filas
 
         public Cola_de_Digitos(Color color, int digito, int j, int filas) {
+        	this.n_digitos = filas;
             this.color = colores[r.nextInt(5)];//color;
             //Son las filas
-            for (int i = 0; i < filas; i++) {
+            for (int i = 0; i < n_digitos; i++) {
+            	
                 //Asignamos y despues incrementamos la variable
                 this.casillaAleatoria((new Random().nextInt(2)), i, j);
             }   
@@ -49,11 +51,13 @@ public final class Candado extends JFrame implements ActionListener {
         
         public void casillaAleatoria(int aleatorio, int i, int j) {
         	
+        	 Color color = colores[r.nextInt(5)];
+        	
         	if(aleatorio == 0) {
         		Tablero[0][i][j] = (new Random().nextInt(9)) + 1;//digito++;
                 Casilla[i][j].setText(String.valueOf(Tablero[0][i][j]));
-                Tablero[1][i][j] = colores[r.nextInt(5)];
-                Casilla[i][j].setBackground(colores[r.nextInt(5)]);
+                Tablero[1][i][j] = color;//colores[r.nextInt(5)];
+                Casilla[i][j].setBackground(color);
                 //Establecer un color para el texto del Casilla
                 Casilla[i][j].setForeground(Color.BLACK); 
         	}else {
@@ -193,9 +197,9 @@ public final class Candado extends JFrame implements ActionListener {
         }         
         
         //Inicializamos el arreglo para los archivos que seran descifrados
-        Candado = new ArrayList<>(5);
+        Candado = new ArrayList<>(m);
         //el indice se basa en el numero de colores
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < m; i++) {
             Cola_de_Digitos obj = new Cola_de_Digitos(colores[i], 0, i, n);
             Candado.add(obj);
         }
@@ -325,8 +329,9 @@ public final class Candado extends JFrame implements ActionListener {
         }          
         
         //Inicializamos el arreglo para los archivos que seran desfragmentados
-        Candado = new ArrayList<>(5);
+        Candado = new ArrayList<>(m);
         for(int i = 0; i < 5; i++) {
+        	//n son filas y m son columnas
             Cola_de_Digitos obj = new Cola_de_Digitos(colores[i], 0, i, n);
             Candado.add(obj);
         }      
@@ -336,7 +341,7 @@ public final class Candado extends JFrame implements ActionListener {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
         	//10 filas por 5 columnas
-            new Candado(15, 5).setVisible(true);
+            new Candado(1, 10).setVisible(true);
         });
     }    
 }
