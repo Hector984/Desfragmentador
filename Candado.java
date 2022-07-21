@@ -29,6 +29,7 @@ public final class Candado extends JFrame implements ActionListener {
     private JPanel Panel_Matriz;   
     private final Color[] colores; 
     private Timer timer;
+    private Random r = new Random();
     
     
     
@@ -38,7 +39,7 @@ public final class Candado extends JFrame implements ActionListener {
         public int n_digitos = 10;//Representa las filas
 
         public Cola_de_Digitos(Color color, int digito, int j, int filas) {
-            this.color = color;
+            this.color = colores[r.nextInt(5)];//color;
             //Son las filas
             for (int i = 0; i < filas; i++) {
                 //Asignamos y despues incrementamos la variable
@@ -51,8 +52,8 @@ public final class Candado extends JFrame implements ActionListener {
         	if(aleatorio == 0) {
         		Tablero[0][i][j] = (new Random().nextInt(9)) + 1;//digito++;
                 Casilla[i][j].setText(String.valueOf(Tablero[0][i][j]));
-                Tablero[1][i][j] = color;
-                Casilla[i][j].setBackground(color);
+                Tablero[1][i][j] = colores[r.nextInt(5)];
+                Casilla[i][j].setBackground(colores[r.nextInt(5)]);
                 //Establecer un color para el texto del Casilla
                 Casilla[i][j].setForeground(Color.BLACK); 
         	}else {
